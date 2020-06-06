@@ -8,8 +8,13 @@ def addUser(connection, username, password, fullName):
 @with_connection
 def updateUser(connection, username, password, fullName):
     cursor = connection.cursor()
-    cursor.execute("UPDATE users SET password = %s, full_name = %s WHERE username = %s", (password, fullName, username))
-    pass
+    if password and fullName:
+        cursor.execute("UPDATE users SET password = %s, full_name = %s WHERE username = %s", (password, fullName, username))
+    elif password:
+        cursor.execute("UPDATE users SET password = %s WHERE username = %s", (password, username))
+    elif fullName:
+        cursor.execute("UPDATE users SET full_name = %s WHERE username = %s", (fullName, username))
+    
 
 @with_connection
 def deleteUser(connection, username):
