@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add User{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form action="addUser" method="POST">
+        <label for="username">Username</label>
+        <input type="username" name="username" id="username" placeholder="Fred">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password">
+
+        <label for="fullName">Full Name</label>
+        <input type="fullName" name="fullName" id="fullName" placeholder="Fred Flintstone">
+        <br>
+        <input type="submit" value="Add User" >
+    </form>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+
+  </script>
+{% endblock %}
