@@ -14,7 +14,6 @@ def updateUser(connection, username, password, fullName):
         cursor.execute("UPDATE users SET password = %s WHERE username = %s", (password, username))
     elif fullName:
         cursor.execute("UPDATE users SET full_name = %s WHERE username = %s", (fullName, username))
-    
 
 @with_connection
 def deleteUser(connection, username):
@@ -25,10 +24,23 @@ def deleteUser(connection, username):
 def listUsers(connection):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users ORDER BY username;")
-    return cursor.fetchall()
+    return list(map(userDict, cursor.fetchall()))
+
+@with_connection
+def getUser(connection, username):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    if cursor.rowcount > 0:
+        return userDict(cursor.fetchone())
+    else:
+        return None
 
 @with_connection
 def userExists(connection, username):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
     return cursor.rowcount
+
+def userDict(user):
+    keys = ('username', 'password', 'fullName')
+    return {keys[i] : user[i] for i, _ in enumerate(user)}

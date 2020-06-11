@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Add User{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form id="addUserForm">
+        <label for="username">Username</label>
+        <input type="username" name="username" id="username" placeholder="Fred">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password">
+
+        <label for="fullName">Full Name</label>
+        <input type="fullName" name="fullName" id="fullName" placeholder="Fred Flintstone">
+        <br>
+    </form>
+    <button id="addUserButton">Add User</button>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        const addUserButton = document.getElementById("addUserButton");
+
+        addUserButton.onclick = function () {
+            const form = new FormData(document.getElementById("addUserForm"));
+            fetch('/api/users', {
+                method: 'POST',
+                body: form
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                alert(text);
+            }).then(function () {
+                window.location.href = "/admin";
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% macro User(user) -%}
+    <tr>
+        <td style="vertical-align: middle;"><h2 style="margin: 0;"><a href="/admin/user/{{user['username']}}">{{user['fullName']}}</a></h2></td>
+        <td style="vertical-align: middle; text-align: right;"><input type="hidden" value="{{user['username']}}"><button class="deleteUserButton" style="background: red; margin: 0;">Delete</button></td>
+    </tr>
+{%- endmacro %}
+
+{% block header %}
+    <h1>{% block title %}User Management{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    {% if users|length == 0 %}
+        <h3>There are no users to display.</h3>
+    {% else %}
+    <table>
+        <tbody>
+        {% for user in users %}
+            {{User(user)}}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <br>
+    <br>
+    <a href="/admin/addUser"><button>Create New User</button></a>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        const deleteButtons = document.querySelectorAll(".deleteUserButton");
+        for (let deleteUserButton of deleteButtons) {
+            deleteUserButton.onclick = function () {
+                const username = deleteUserButton.previousElementSibling.value;
+                const isConfirmed = confirm("Are you sure you want to delete the user " + username + "?");
+                if (isConfirmed) {
+                    fetch('/api/users/' + username, {
+                        method: 'DELETE'
+                    }).then(function (response) {
+                        return response.text();
+                    }).then(function (text) {
+                        alert(text);
+                    }).then(function () {
+                        window.location.reload();
+                    });
+                }
+            }
+        }
+    </script>
+{% endblock %}

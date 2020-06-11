@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Modify User</h1>
+  <h2>{% block title %}{{user['fullName']}}{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+    <form id="modifyUserForm">
+        <label for="username">Username</label>
+        <input type="username" name="username" id="username" disabled value="{{user['username']}}">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" value="{{user['password']}}">
+
+        <label for="fullName">Full Name</label>
+        <input type="fullName" name="fullName" id="fullName" value="{{user['fullName']}}">
+        <br>
+    </form>
+    <button id="editUserButton">Edit User</button>
+    <button style="background: red;" id="deleteUserButton">Delete User</button>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        const editUserButton = document.getElementById("editUserButton");
+        const deleteUserButton = document.getElementById("deleteUserButton");
+
+        editUserButton.onclick = function () {
+            const username = document.querySelector("input[name='username']").value;
+            const form = new FormData(document.getElementById("modifyUserForm"));
+            fetch('/api/users/' + username, {
+                method: 'PUT',
+                body: form
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                alert(text);
+            }).then(function () {
+                window.location.href = "/admin";
+            });
+        }
+
+        deleteUserButton.onclick = function () {
+            const username = document.querySelector("input[name='username']").value;
+            const isConfirmed = confirm("Are you sure you want to delete the user " + username + "?");
+            if (isConfirmed) {
+                fetch('/api/users/' + username, {
+                    method: 'DELETE'
+                }).then(function (response) {
+                    return response.text();
+                }).then(function (text) {
+                    alert(text);
+                }).then(function () {
+                    window.location.href = "/admin";
+                });
+            }
+        }
+    </script>
+{% endblock %}

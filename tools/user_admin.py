@@ -1,3 +1,4 @@
+# pylint: disable=no-value-for-parameter
 # Needed for importing from parent directory
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -22,7 +23,7 @@ def printTable(headers, data):
     print("|\n|==============================|==============================|==============================|")
     for row in data:
         for column in row:
-            print(f"|{column.ljust(30)}", end='') 
+            print(f"|{row[column].ljust(30)}", end='') 
         print("|")
 
 def listUsersCommand():
