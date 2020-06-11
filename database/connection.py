@@ -8,7 +8,8 @@ def with_connection(function):
     def with_connection_(*args, **kwargs):
         global connection
         if not connection:
-            connection = psycopg2.connect(host=settings.db_host, dbname=settings.db_name, user=settings.db_user, password=settings.db_password)
+            secret = settings.get_database_secret()
+            connection = psycopg2.connect(host=secret['host'], dbname=secret['dbname'], user=secret['username'], password=secret['password'])
         try:
             result = function(connection, *args, **kwargs)
         except Exception:
