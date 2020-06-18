@@ -13,7 +13,7 @@ def with_connection(function):
         try:
             result = function(connection, *args, **kwargs)
         except Exception:
-            connection.rollback()
+            connection = None
             raise
         else:
             connection.commit()
