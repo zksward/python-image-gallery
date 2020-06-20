@@ -9,6 +9,10 @@ api = Api(app)
 
 api.add_resource(User, '/api/users', '/api/users/<string:username>')
 
+@app.route('/')
+def index():
+    return """<a href="/admin">Admin</a>"""
+
 @app.route('/admin')
 def adminView():
     return render_template("admin/admin.html", users=users.listUsers())
