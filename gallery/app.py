@@ -11,7 +11,7 @@ api.add_resource(User, '/api/users', '/api/users/<string:username>')
 
 @app.route('/')
 def index():
-    return """<a href="/admin">Admin</a>"""
+    return render_template("index.html")
 
 @app.route('/admin')
 def adminView():
