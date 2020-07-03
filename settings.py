@@ -9,7 +9,7 @@ from botocore.exceptions import ClientError
 
 def get_database_secret():
 
-    secret_name = "ig/postgres/imagegallery"
+    secret_name = "ig/m5/postgres/imagegallery"
     region_name = "us-east-2"
 
     # Create a Secrets Manager client
