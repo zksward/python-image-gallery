@@ -7,7 +7,7 @@ ENV PG_HOST=
 ENV PG_PORT=5432
 ENV IG_DATABASE=imagegallery
 ENV IG_USER=imagegallery
-ENV IG_PASSWD=1L8V7`E_FV[46y(`)eL#A<[3IkY8E7K`
+ENV IG_PASSWD=smw0036
 ENV IG_PASSWD_FILE=
 ENV S3_IMAGE_BUCKET=edu.auburn.smw0036.image-gallery
 
@@ -26,7 +26,7 @@ USER imagegallery
 
 WORKDIR /home/imagegallery
 
-# COPY --chown=imagegallery:imagegallery . .
+# Clone repo
 RUN git clone -b docker https://github.com/zksward/python-image-gallery.git
 
 WORKDIR /home/imagegallery/python-image-gallery
