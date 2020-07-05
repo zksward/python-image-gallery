@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 export IMAGE_GALLERY_SCRIPT_VERSION="1.0"
 

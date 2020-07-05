@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 export FLASK_APP=gallery/app.py
 export FLASK_ENV=production

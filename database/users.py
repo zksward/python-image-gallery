@@ -3,7 +3,7 @@ from .connection import with_connection
 @with_connection
 def addUser(connection, username, password, fullName):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO users VALUES (%s,%s,%s);", (username, password, fullName))
+    cursor.execute("INSERT INTO users(username, password, full_name) VALUES (%s,%s,%s);", (username, password, fullName))
 
 @with_connection
 def updateUser(connection, username, password, fullName):
@@ -42,5 +42,5 @@ def userExists(connection, username):
     return cursor.rowcount
 
 def userDict(user):
-    keys = ('username', 'password', 'fullName')
+    keys = ('id', 'username', 'password', 'fullName')
     return {keys[i] : user[i] for i, _ in enumerate(user)}

@@ -19,15 +19,15 @@ def menuPrompt():
 
 def printTable(headers, data):
     for header in headers:
-        print(f"|{header.ljust(30)}", end='')
-    print("|\n|==============================|==============================|==============================|")
+        print(f"|{str(header.ljust(30))}", end='')
+    print("|\n|==============================|==============================|==============================|==============================|")
     for row in data:
         for column in row:
-            print(f"|{row[column].ljust(30)}", end='') 
+            print(f"|{str(row[column]).ljust(30)}", end='') 
         print("|")
 
 def listUsersCommand():
-    printTable(("Username","Password","Full Name"),users.listUsers())
+    printTable(("ID","Username","Password","Full Name"),users.listUsers())
 
 def addUserCommand():
     username = input("Username> ")

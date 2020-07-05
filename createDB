@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$IG_PASSWD_FILE" ]
+then
+      PGPASSWORD=$IG_PASSWD psql -h $PG_HOST -U $IG_USER -f imagegallery.sql
+else
+      PGPASSWORD=$(<$IG_PASSWD_FILE) psql -h $PG_HOST -U $IG_USER -f imagegallery.sql
+fi
+

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 export IMAGE_GALLERY_BOOTSTRAP_VERSION="1.0"
 export BUCKET_NAME="edu.auburn.smw0036.image-gallery-config"
