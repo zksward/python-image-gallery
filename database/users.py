@@ -41,6 +41,14 @@ def userExists(connection, username):
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
     return cursor.rowcount
 
+def userIsAuthenticated(username, password):
+    user = getUser(username)
+    if user is not None:
+        return user['password'] == password
+    else:
+        return False
+    
+
 def userDict(user):
     keys = ('id', 'username', 'password', 'fullName')
     return {keys[i] : user[i] for i, _ in enumerate(user)}

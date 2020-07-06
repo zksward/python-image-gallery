@@ -8,3 +8,4 @@ if os.getenv("IG_PASSWD_FILE") == '':
 else:
     with open(os.getenv("IG_PASSWD_FILE"), 'r') as file:
         db_password = file.read().replace('\n', '')
+flask_secret_key = os.getenv("FLASK_SECRET_KEY")

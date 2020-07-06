@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Login{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="username" name="username" id="username" placeholder="Username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password">
+        <br>
+    </form>
+    <button id="loginButton">Login</button>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        const loginButton = document.getElementById("loginButton");
+
+        loginButton.onclick = function () {
+            const form = new FormData(document.getElementById("loginForm"));
+            fetch('/api/authenticate', {
+                method: 'POST',
+                body: form
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                if (text.replace(/["\n]/g, '') == "User Authenticated") {
+                    window.location.href = "/home";
+                }
+            }).catch(function (error) {
+                alert(error);
+            });
+        }
+    </script>
+{% endblock %}
