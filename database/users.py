@@ -29,7 +29,7 @@ def listUsers(connection):
 @with_connection
 def getUser(connection, username):
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    cursor.execute("SELECT * FROM users WHERE username = %s;", (username,))
     if cursor.rowcount > 0:
         return userDict(cursor.fetchone())
     else:
@@ -38,17 +38,17 @@ def getUser(connection, username):
 @with_connection
 def userExists(connection, username):
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    cursor.execute("SELECT * FROM users WHERE username = %s;", (username,))
     return cursor.rowcount
 
 def userIsAuthenticated(username, password):
     user = getUser(username)
     if user is not None:
-        return user['password'] == password
+        return (user['password'] == password, user['isAdmin'])
     else:
-        return False
+        return (False, False)
     
 
 def userDict(user):
-    keys = ('id', 'username', 'password', 'fullName')
+    keys = ('id', 'username', 'password', 'fullName', 'isAdmin')
     return {keys[i] : user[i] for i, _ in enumerate(user)}

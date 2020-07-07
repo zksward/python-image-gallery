@@ -7,8 +7,10 @@ class Authenticate(Resource):
     def post(self):
         username = request.form['username']
         password = request.form['password']
-        if users.userIsAuthenticated(username, password):
+        authentication = users.userIsAuthenticated(username, password)
+        if authentication[0]:
             session['username'] = username
+            session['isAdmin'] = authentication[1]
             return "User Authenticated", 200
         else:
             return "Error: Wrong Username or Password", 401

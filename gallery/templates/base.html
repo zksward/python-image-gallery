@@ -12,6 +12,9 @@
     <section>
         <header>
             {% block header %}{% endblock %}
+            {% if session['username'] %}
+                <a href="/admin">Admin</a>
+            {% endif %}
         </header>
         {% block content %}{% endblock %}
     </section>
