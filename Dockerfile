@@ -1,3 +1,5 @@
+# DOCKER HUB LINK: https://hub.docker.com/r/smw0036/image-gallery-smw0036
+
 FROM ubuntu:latest
 
 # Environment Variables
